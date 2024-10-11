@@ -7,7 +7,8 @@ public class Exponential implements Series{
         return (int) ( firstElement * Math.pow(coefficient, index - 1));
     }
     public int sumOfProgression(int firstElement, int index, int coefficient){
-        return (int) ( firstElement * (Math.pow(coefficient, index) - 1) / (coefficient - 1));
+       if (coefficient!=1) { return (int) ( firstElement * (Math.pow(coefficient, index) - 1) / (coefficient - 1)); }
+       else {return firstElement*index;}
     }
     public String toString(int firstElement, int index, int coefficient){
         int[] progression = new int[index];

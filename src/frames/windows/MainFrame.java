@@ -26,8 +26,8 @@ public class MainFrame extends JFrame {
     private final JButton calculateSumButton;
     private final JButton outputAllButton;
     private final JButton outputInFileButton;
-    private final JLabel resultLabel;
-
+    //private final JLabel resultLabel;
+    private final  JTextArea textArea;
 
 
 
@@ -53,19 +53,20 @@ public class MainFrame extends JFrame {
         calculateSumButton = new JButton("Output sum of progression");
         outputAllButton = new JButton("Output all elements of progression");
         outputInFileButton = new JButton("Write progression to file");
-        resultLabel = new JLabel("Result: ");
+        //resultLabel = new JLabel("Result: ");
+        textArea = new JTextArea("Result: ", 1, 45);
 
 
-       AllNorthPanel();
-       AllCentralPanel();
-       AllSouthPanel();
+        AllNorthPanel();
+        AllCentralPanel();
+        AllSouthPanel();
 
-       button1(liner, exponential);
-       button2(liner, exponential);
-       button3(liner, exponential);
-       button4(liner, exponential);
+        button1(liner, exponential);
+        button2(liner, exponential);
+        button3(liner, exponential);
+        button4(liner, exponential);
 
-       setVisible(true);
+        setVisible(true);
 
     }
 
@@ -76,10 +77,16 @@ public class MainFrame extends JFrame {
         add(progressionPanel, BorderLayout.NORTH);
     }
     void AllSouthPanel(){
-        resultPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        resultPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         Font BigFontTR = new Font("TimesRoman", Font.BOLD, 30);
-        resultLabel.setFont(BigFontTR);
-        resultPanel.add(resultLabel);
+        textArea.setFont(BigFontTR);
+        textArea.setLineWrap(false);
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+        resultPanel.add(scrollPane);
         add(resultPanel, BorderLayout.SOUTH);
     }
     void AllCentralPanel(){
@@ -177,10 +184,10 @@ public class MainFrame extends JFrame {
                         result = liner.getElement(firstElement, index, coefficient);
 
                     }
-                    resultLabel.setText(String.format("Result: %d", result));
+                    textArea.setText(String.format("Result: %d", result));
 
                 } catch (NumberFormatException ex) {
-                    resultLabel.setText("Error");
+                    textArea.setText("Error");
                 }
             }
         });
@@ -202,62 +209,60 @@ public class MainFrame extends JFrame {
                         result = liner.toString(firstElement, index, coefficient);
 
                     }
-                    resultLabel.setText(String.format("Result: %s", result));
+                    textArea.setText(String.format("Result: %s", result));
 
                 } catch (NumberFormatException ex) {
-                    resultLabel.setText("Error");
+                    textArea.setText("Error");
                 }
             }
         });
     }
     void button3(Liner liner,Exponential exponential){
         calculateSumButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                int firstElement = Integer.parseInt(firstElementField.getText());
-                int coefficient = Integer.parseInt(ratioField.getText());
-                int index = Integer.parseInt(nElementField.getText());
-                int result=0;
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int firstElement = Integer.parseInt(firstElementField.getText());
+                    int coefficient = Integer.parseInt(ratioField.getText());
+                    int index = Integer.parseInt(nElementField.getText());
+                    int result=0;
 
-                if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
-                    result = exponential.sumOfProgression(firstElement, index, coefficient);
+                    if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
+                        result = exponential.sumOfProgression(firstElement, index, coefficient);
 
-                } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
-                    result = liner.sumOfProgression(firstElement, index, coefficient);
+                    } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
+                        result = liner.sumOfProgression(firstElement, index, coefficient);
 
+                    }
+                    textArea.setText(String.format("Result: %d", result));
+
+                } catch (NumberFormatException ex) {
+                    textArea.setText("Error");
                 }
-                resultLabel.setText(String.format("Result: %d", result));
-
-            } catch (NumberFormatException ex) {
-                resultLabel.setText("Error");
             }
-        }
-    });}
+        });}
     void button4(Liner liner,Exponential exponential){
         outputInFileButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                int firstElement = Integer.parseInt(firstElementField.getText());
-                int coefficient = Integer.parseInt(ratioField.getText());
-                int index = Integer.parseInt(nElementField.getText());
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int firstElement = Integer.parseInt(firstElementField.getText());
+                    int coefficient = Integer.parseInt(ratioField.getText());
+                    int index = Integer.parseInt(nElementField.getText());
 
 
-                if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
-                    exponential.exportInFile(firstElement, index, coefficient);
-                } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
-                    liner.exportInFile(firstElement, index, coefficient);
+                    if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
+                        exponential.exportInFile(firstElement, index, coefficient);
+                    } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
+                        liner.exportInFile(firstElement, index, coefficient);
+                    }
+                    textArea.setText("Result: progression successfully written to file");
+
+                } catch (NumberFormatException ex) {
+                    textArea.setText("Error");
                 }
-                resultLabel.setText("Result: progression successfully written to file");
-
-            } catch (NumberFormatException ex) {
-                resultLabel.setText("Error");
             }
-        }
-    });}
+        });}
 
 
 }
-
-
