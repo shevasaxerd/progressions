@@ -155,6 +155,81 @@ public class MainFrame extends JFrame {
             }
         });
 
+        outputAllButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int firstElement = Integer.parseInt(firstElementField.getText());
+                    int coefficient = Integer.parseInt(ratioField.getText());
+                    int index = Integer.parseInt(nElementField.getText());
+                    String result="";
+
+                    if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
+                        result = exponential.toString(firstElement, index, coefficient);
+
+                    } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
+                        result = liner.toString(firstElement, index, coefficient);
+
+                    }
+                    resultLabel.setText(String.format("Result: %s", result));
+
+                } catch (NumberFormatException ex) {
+                    resultLabel.setText("Error");
+                }
+            }
+        });
+
+
+
+        calculateSumButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int firstElement = Integer.parseInt(firstElementField.getText());
+                    int coefficient = Integer.parseInt(ratioField.getText());
+                    int index = Integer.parseInt(nElementField.getText());
+                    int result=0;
+
+                    if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
+                        result = exponential.sumOfProgression(firstElement, index, coefficient);
+
+                    } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
+                        result = liner.sumOfProgression(firstElement, index, coefficient);
+
+                    }
+                    resultLabel.setText(String.format("Result: %d", result));
+
+                } catch (NumberFormatException ex) {
+                    resultLabel.setText("Error");
+                }
+            }
+        });
+
+        outputInFileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    int firstElement = Integer.parseInt(firstElementField.getText());
+                    int coefficient = Integer.parseInt(ratioField.getText());
+                    int index = Integer.parseInt(nElementField.getText());
+
+
+                    if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
+                        exponential.exportInFile(firstElement, index, coefficient);
+                    } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
+                        liner.exportInFile(firstElement, index, coefficient);
+                    }
+                    resultLabel.setText("Result: progression successfully written to file");
+
+                } catch (NumberFormatException ex) {
+                    resultLabel.setText("Error");
+                }
+            }
+        });
+
+
+
+
 
         setVisible(true);
 
