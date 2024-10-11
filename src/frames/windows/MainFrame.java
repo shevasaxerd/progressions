@@ -10,24 +10,23 @@ import java.util.Objects;
 
 public class MainFrame extends JFrame {
 
-    JPanel progressionPanel = new JPanel();
-    JPanel centralPanel = new JPanel();
-    JPanel inputPanel1 = new JPanel();
-    JPanel inputPanel2 = new JPanel();
-    JPanel inputPanel3 = new JPanel();
-    JPanel inputPanel = new JPanel();
-    JPanel operationPanel = new JPanel();
-    JPanel resultPanel = new JPanel();
-    String[] progressions = {"Exponential", "Linear"};
-    JComboBox<String> progressionComboBox = new JComboBox<>(progressions);
-    JTextField firstElementField = new JTextField(10);
-    JTextField ratioField = new JTextField(10);
-    JTextField nElementField = new JTextField(10);
-    JButton calculateNthElementButton = new JButton("Output N-th element");
-    JButton calculateSumButton = new JButton("Output sum of progression");
-    JButton outputAllButton = new JButton("Output all elements of progression");
-    JButton outputInFileButton = new JButton("Write progression to file");
-    JLabel resultLabel = new JLabel("Result: ");
+    private final JPanel progressionPanel;
+    private final JPanel centralPanel;
+    private final JPanel inputPanel1;
+    private final JPanel inputPanel2;
+    private final JPanel inputPanel3;
+    private final JPanel inputPanel;
+    private final JPanel operationPanel;
+    private final JPanel resultPanel;
+    private final JComboBox<String> progressionComboBox;
+    private final JTextField firstElementField;
+    private final JTextField ratioField;
+    private final JTextField nElementField;
+    private final JButton calculateNthElementButton;
+    private final JButton calculateSumButton;
+    private final JButton outputAllButton;
+    private final JButton outputInFileButton;
+    private final JLabel resultLabel;
 
 
 
@@ -37,6 +36,24 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 400);
         setLayout(new BorderLayout(10, 10));
+        progressionPanel = new JPanel();
+        centralPanel = new JPanel();
+        inputPanel1 = new JPanel();
+        inputPanel2 = new JPanel();
+        inputPanel3 = new JPanel();
+        inputPanel = new JPanel();
+        operationPanel = new JPanel();
+        resultPanel = new JPanel();
+        String[] progressions = new String[]{"Exponential", "Linear"};
+        progressionComboBox = new JComboBox<>(progressions);
+        firstElementField = new JTextField(10);
+        ratioField = new JTextField(10);
+        nElementField = new JTextField(10);
+        calculateNthElementButton = new JButton("Output N-th element");
+        calculateSumButton = new JButton("Output sum of progression");
+        outputAllButton = new JButton("Output all elements of progression");
+        outputInFileButton = new JButton("Write progression to file");
+        resultLabel = new JLabel("Result: ");
 
 
        AllNorthPanel();
