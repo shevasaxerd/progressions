@@ -6,7 +6,9 @@ import services.MainService;
 
 public class Main {
     public static void main(String[] args) {
-        MainFrame mainFrame = new MainFrame();
+        Liner liner = new Liner();
+        Exponential exponential = new Exponential();
+        MainFrame mainFrame = new MainFrame(liner, exponential);
 
     }
 }
