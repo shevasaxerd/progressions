@@ -1,8 +1,6 @@
 import models.Liner;
-import models.Series;
 import models.Exponential;
-import frames.windows.MainFrame;
-import services.MainService;
+import frames.MainFrame;
 
 public class Main {
     public static void main(String[] args) {

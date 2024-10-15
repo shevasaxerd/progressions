@@ -1,4 +1,4 @@
-package frames.windows;
+package frames;
 
 import models.Exponential;
 import models.Liner;
@@ -10,24 +10,18 @@ import java.util.Objects;
 
 public class MainFrame extends JFrame {
 
-    private final JPanel progressionPanel;
-    private final JPanel centralPanel;
-    private final JPanel inputPanel1;
-    private final JPanel inputPanel2;
-    private final JPanel inputPanel3;
-    private final JPanel inputPanel;
-    private final JPanel operationPanel;
-    private final JPanel resultPanel;
-    private final JComboBox<String> progressionComboBox;
-    private final JTextField firstElementField;
-    private final JTextField ratioField;
-    private final JTextField nElementField;
-    private final JButton calculateNthElementButton;
-    private final JButton calculateSumButton;
-    private final JButton outputAllButton;
-    private final JButton outputInFileButton;
-    //private final JLabel resultLabel;
-    private final  JTextArea textArea;
+    private JPanel centralPanel;
+    private JPanel inputAllParametersPanel;
+    private final String[] progressions = new String[]{"Exponential", "Linear"};
+    private JComboBox<String> progressionComboBox;
+    private JTextField firstElementField;
+    private JTextField ratioField;
+    private JTextField nElementField;
+    private JButton calculateNthElementButton;
+    private JButton calculateSumButton;
+    private JButton outputAllButton;
+    private JButton outputInFileButton;
+    private JTextArea textArea;
 
 
 
@@ -36,47 +30,32 @@ public class MainFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 400);
         setLayout(new BorderLayout(10, 10));
-        progressionPanel = new JPanel();
-        centralPanel = new JPanel();
-        inputPanel1 = new JPanel();
-        inputPanel2 = new JPanel();
-        inputPanel3 = new JPanel();
-        inputPanel = new JPanel();
-        operationPanel = new JPanel();
-        resultPanel = new JPanel();
-        String[] progressions = new String[]{"Exponential", "Linear"};
-        progressionComboBox = new JComboBox<>(progressions);
-        firstElementField = new JTextField(10);
-        ratioField = new JTextField(10);
-        nElementField = new JTextField(10);
-        calculateNthElementButton = new JButton("Output N-th element");
-        calculateSumButton = new JButton("Output sum of progression");
-        outputAllButton = new JButton("Output all elements of progression");
-        outputInFileButton = new JButton("Write progression to file");
-        //resultLabel = new JLabel("Result: ");
-        textArea = new JTextArea("Result: ", 1, 45);
 
 
+        initCalculateNthElementButton(liner, exponential);
+        initOutputAllButton(liner, exponential);
+        initCalculateSumButton(liner, exponential);
+        initOutputInFileButton(liner, exponential);
         AllNorthPanel();
         AllCentralPanel();
+        ButtonPanel();
         AllSouthPanel();
-
-        button1(liner, exponential);
-        button2(liner, exponential);
-        button3(liner, exponential);
-        button4(liner, exponential);
 
         setVisible(true);
 
     }
 
     void AllNorthPanel(){
+        JPanel progressionPanel = new JPanel();
+        progressionComboBox = new JComboBox<>(progressions);
         progressionPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         progressionPanel.add(new JLabel("Choose progression:"));
         progressionPanel.add(progressionComboBox);
         add(progressionPanel, BorderLayout.NORTH);
     }
     void AllSouthPanel(){
+        textArea = new JTextArea("Result: ", 1, 45);
+        JPanel resultPanel = new JPanel();
         resultPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         Font BigFontTR = new Font("TimesRoman", Font.BOLD, 30);
         textArea.setFont(BigFontTR);
@@ -90,84 +69,98 @@ public class MainFrame extends JFrame {
         add(resultPanel, BorderLayout.SOUTH);
     }
     void AllCentralPanel(){
+        centralPanel = new JPanel();
         centralPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
 
 
-        inputPanel1.setLayout(new GridBagLayout());
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        inputPanel1.add(new JLabel("First element:"), gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        inputPanel1.add(firstElementField, gbc);
+        JPanel inputFirstElementPanel = new JPanel();
+        firstElementField = new JTextField(10);
+        inputFirstElementPanel.setLayout(new GridBagLayout());
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        inputFirstElementPanel.add(new JLabel("First element:"), gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        inputFirstElementPanel.add(firstElementField, gridBagConstraints);
 
 
-        inputPanel2.setLayout(new GridBagLayout());
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        inputPanel2.add(new JLabel("Coefficient:"), gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        inputPanel2.add(ratioField, gbc);
+        JPanel inputCoefficientPanel = new JPanel();
+        ratioField = new JTextField(10);
+        inputCoefficientPanel.setLayout(new GridBagLayout());
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        inputCoefficientPanel.add(new JLabel("Coefficient:"), gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        inputCoefficientPanel.add(ratioField, gridBagConstraints);
 
 
-        inputPanel3.setLayout(new GridBagLayout());
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        inputPanel3.add(new JLabel("N-th element:"), gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        inputPanel3.add(nElementField, gbc);
+        JPanel inputNthElementPanel = new JPanel();
+        nElementField = new JTextField(10);
+        inputNthElementPanel.setLayout(new GridBagLayout());
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        inputNthElementPanel.add(new JLabel("N-th element:"), gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        inputNthElementPanel.add(nElementField, gridBagConstraints);
 
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        inputPanel.add(inputPanel1, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        inputPanel.add(inputPanel2, gbc);
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        inputPanel.add(inputPanel3, gbc);
+        inputAllParametersPanel = new JPanel();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        inputAllParametersPanel.add(inputFirstElementPanel, gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        inputAllParametersPanel.add(inputCoefficientPanel, gridBagConstraints);
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        inputAllParametersPanel.add(inputNthElementPanel, gridBagConstraints);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        centralPanel.add(inputPanel, gbc);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        centralPanel.add(inputAllParametersPanel, gridBagConstraints);
 
+    }
+    void ButtonPanel(){
 
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        JPanel operationPanel = new JPanel();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        centralPanel.add(operationPanel, gridBagConstraints);
+        inputAllParametersPanel.setLayout(new GridBagLayout());
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = GridBagConstraints.SOUTH;
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        centralPanel.add(operationPanel, gbc);
-        inputPanel.setLayout(new GridBagLayout());
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.anchor = GridBagConstraints.SOUTH;
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
         calculateNthElementButton.setPreferredSize(new Dimension(250, 50));
-        operationPanel.add(calculateNthElementButton, gbc);
+        operationPanel.add(calculateNthElementButton, gridBagConstraints);
 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         calculateSumButton.setPreferredSize(new Dimension(250, 50));
-        operationPanel.add(calculateSumButton, gbc);
+        operationPanel.add(calculateSumButton, gridBagConstraints);
 
-        gbc.gridx = 2;
-        gbc.gridy = 0;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
         outputAllButton.setPreferredSize(new Dimension(250, 50));
-        operationPanel.add(outputAllButton, gbc);
+        operationPanel.add(outputAllButton, gridBagConstraints);
 
-        gbc.gridx = 3;
-        gbc.gridy = 0;
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
         outputInFileButton.setPreferredSize(new Dimension(250, 50));
-        operationPanel.add(outputInFileButton, gbc);
+        operationPanel.add(outputInFileButton, gridBagConstraints);
 
         add(centralPanel, BorderLayout.CENTER);
     }
-    void button1(Liner liner,Exponential exponential){
+
+    void initCalculateNthElementButton(Liner liner, Exponential exponential){
+        calculateNthElementButton = new JButton("Output N-th element");
         calculateNthElementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,7 +185,8 @@ public class MainFrame extends JFrame {
             }
         });
     }
-    void button2(Liner liner,Exponential exponential){
+    void initOutputAllButton(Liner liner, Exponential exponential){
+        outputAllButton = new JButton("Output all elements of progression");
         outputAllButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -217,7 +211,8 @@ public class MainFrame extends JFrame {
             }
         });
     }
-    void button3(Liner liner,Exponential exponential){
+    void initCalculateSumButton(Liner liner, Exponential exponential){
+        calculateSumButton = new JButton("Output sum of progression");
         calculateSumButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -241,7 +236,8 @@ public class MainFrame extends JFrame {
                 }
             }
         });}
-    void button4(Liner liner,Exponential exponential){
+    void initOutputInFileButton(Liner liner, Exponential exponential){
+        outputInFileButton = new JButton("Write progression to file");
         outputInFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -265,4 +261,6 @@ public class MainFrame extends JFrame {
         });}
 
 
+
 }
+
