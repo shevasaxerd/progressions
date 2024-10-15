@@ -36,14 +36,14 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout(10, 10));
         this.liner = liner;
         this.exponential = exponential;
+        this.current = this.exponential;
 
 
-
-        initCalculateNthElementButton(liner, exponential);
-        initOutputAllButton(liner, exponential);
-        initCalculateSumButton(liner, exponential);
-        initOutputInFileButton(liner, exponential);
         initProgressionPanel();
+        initCalculateNthElementButton(current);
+        initOutputAllButton(current);
+        initCalculateSumButton(current);
+        initOutputInFileButton(current);
         initParametersPanel();
         ButtonsPanel();
         initResultPanel();
@@ -58,7 +58,6 @@ public class MainFrame extends JFrame {
         progressionPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         progressionPanel.add(new JLabel("Choose progression:"));
         progressionPanel.add(progressionComboBox);
-        current = exponential;
        progressionComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -177,7 +176,7 @@ public class MainFrame extends JFrame {
         add(centralPanel, BorderLayout.CENTER);
     }
 
-    void initCalculateNthElementButton(Series liner, Series exponential){
+    void initCalculateNthElementButton(Series current){
         calculateNthElementButton = new JButton("Output N-th element");
         calculateNthElementButton.addActionListener(new ActionListener() {
             @Override
@@ -194,7 +193,7 @@ public class MainFrame extends JFrame {
             }
         });
     }
-    void initOutputAllButton(Series liner, Series exponential){
+    void initOutputAllButton(Series current){
         outputAllButton = new JButton("Output all elements of progression");
         outputAllButton.addActionListener(new ActionListener() {
             @Override
@@ -211,7 +210,7 @@ public class MainFrame extends JFrame {
             }
         });
     }
-    void initCalculateSumButton(Series liner, Series exponential){
+    void initCalculateSumButton(Series current){
         calculateSumButton = new JButton("Output sum of progression");
         calculateSumButton.addActionListener(new ActionListener() {
             @Override
@@ -227,7 +226,7 @@ public class MainFrame extends JFrame {
                 }
             }
         });}
-    void initOutputInFileButton(Series liner, Series exponential){
+    void initOutputInFileButton(Series current){
         outputInFileButton = new JButton("Write progression to file");
         outputInFileButton.addActionListener(new ActionListener() {
             @Override
