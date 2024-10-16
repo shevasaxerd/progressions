@@ -23,8 +23,8 @@ public class MainFrame extends JFrame {
     private JButton outputAllButton;
     private JButton outputInFileButton;
     private JTextArea textArea;
-    private Series liner;
-    private Series exponential;
+    private final Series liner;
+    private final Series exponential;
     private Series current;
 
 
@@ -36,18 +36,18 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout(10, 10));
         this.liner = liner;
         this.exponential = exponential;
-        this.current = this.exponential;
+        current = this.exponential;
+
 
 
         initProgressionPanel();
-        initCalculateNthElementButton(current);
-        initOutputAllButton(current);
-        initCalculateSumButton(current);
-        initOutputInFileButton(current);
         initParametersPanel();
-        ButtonsPanel();
         initResultPanel();
-
+        initCalculateNthElementButton();
+        initOutputAllButton();
+        initCalculateSumButton();
+        initOutputInFileButton();
+        ButtonsPanel();
         setVisible(true);
 
     }
@@ -59,12 +59,12 @@ public class MainFrame extends JFrame {
         progressionPanel.add(new JLabel("Choose progression:"));
         progressionPanel.add(progressionComboBox);
        progressionComboBox.addActionListener(new ActionListener() {
-            @Override
+           @Override
             public void actionPerformed(ActionEvent e) {
-                if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
-                        current = exponential;
-                    } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
-                    current = liner;
+                if (Objects.equals(progressionComboBox.getSelectedItem(), "Linear")) {
+                        current = liner;
+                    } else if (Objects.equals(progressionComboBox.getSelectedItem(), "Exponential")) {
+                    current = exponential;
                     }
             }
         });
@@ -176,7 +176,7 @@ public class MainFrame extends JFrame {
         add(centralPanel, BorderLayout.CENTER);
     }
 
-    void initCalculateNthElementButton(Series current){
+    void initCalculateNthElementButton(){
         calculateNthElementButton = new JButton("Output N-th element");
         calculateNthElementButton.addActionListener(new ActionListener() {
             @Override
@@ -193,7 +193,7 @@ public class MainFrame extends JFrame {
             }
         });
     }
-    void initOutputAllButton(Series current){
+    void initOutputAllButton(){
         outputAllButton = new JButton("Output all elements of progression");
         outputAllButton.addActionListener(new ActionListener() {
             @Override
@@ -210,7 +210,7 @@ public class MainFrame extends JFrame {
             }
         });
     }
-    void initCalculateSumButton(Series current){
+    void initCalculateSumButton(){
         calculateSumButton = new JButton("Output sum of progression");
         calculateSumButton.addActionListener(new ActionListener() {
             @Override
@@ -226,7 +226,7 @@ public class MainFrame extends JFrame {
                 }
             }
         });}
-    void initOutputInFileButton(Series current){
+    void initOutputInFileButton(){
         outputInFileButton = new JButton("Write progression to file");
         outputInFileButton.addActionListener(new ActionListener() {
             @Override
