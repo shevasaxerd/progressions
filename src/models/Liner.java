@@ -1,5 +1,6 @@
 package models;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -24,14 +25,19 @@ public class Liner implements Series {
         }
         return progressionString;
     }
-    public void exportInFile (int firstElement, int index, int coefficient){
+    public void exportInFile (int firstElement, int index, int coefficient, String fileName){
+        File outputDir = new File("./files");
+        if (!outputDir.exists()) {
+            outputDir.mkdirs();
+        }
+        String fullPath = "./files/" + fileName + ".txt";
         int[] progression = new int[index];
         String progressionString = "";
         for(int i = 0; i<index; i++){
             progression[i] = firstElement + coefficient * i;
             progressionString = progressionString + progression[i] + " ";}
         try {
-            FileWriter writer = new FileWriter("progression.txt", false);
+            FileWriter writer = new FileWriter(fullPath, false);
                 writer.write(progressionString);
             writer.close();
             System.out.println("Writing to the file is successful");

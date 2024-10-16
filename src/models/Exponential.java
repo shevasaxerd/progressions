@@ -1,6 +1,8 @@
 package models;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.File;
+
 
 public class Exponential implements Series{
     public int getElement(int firstElement, int index, int coefficient){
@@ -19,14 +21,20 @@ public class Exponential implements Series{
         }
         return progressionString;
     }
-    public void exportInFile (int firstElement, int index, int coefficient){
+    public void exportInFile (int firstElement, int index, int coefficient, String fileName){
+        File outputDir = new File("./files");
+        if (!outputDir.exists()) {
+            outputDir.mkdirs();
+        }
+        String fullPath = "./files/" + fileName + ".txt";
+
         int[] progression = new int[index];
         String progressionString = "";
         for(int i = 0; i<index; i++){
             progression[i] = (int) (firstElement * Math.pow(coefficient, i));
             progressionString = progressionString + progression[i] + " ";}
         try {
-            FileWriter writer = new FileWriter("progression.txt", false);
+            FileWriter writer = new FileWriter(fullPath, false);
             writer.write(progressionString);
             writer.close();
             System.out.println("Writing to the file is successful");

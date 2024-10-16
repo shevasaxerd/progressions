@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
+
 public class MainFrame extends JFrame {
 
     private JPanel centralPanel;
@@ -18,6 +19,8 @@ public class MainFrame extends JFrame {
     private JTextField firstElementField;
     private JTextField ratioField;
     private JTextField nElementField;
+    private JTextField nameOfFile;
+    private JPanel fileNamePanel;
     private JButton calculateNthElementButton;
     private JButton calculateSumButton;
     private JButton outputAllButton;
@@ -32,7 +35,7 @@ public class MainFrame extends JFrame {
     public MainFrame(Series liner, Series exponential) {
         super("Progressions");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1200, 400);
+        setMinimumSize(new Dimension(1200, 400));
         setLayout(new BorderLayout(10, 10));
         this.liner = liner;
         this.exponential = exponential;
@@ -48,6 +51,7 @@ public class MainFrame extends JFrame {
         initCalculateSumButton();
         initOutputInFileButton();
         ButtonsPanel();
+        initFileNameField();
         setVisible(true);
 
     }
@@ -149,6 +153,9 @@ public class MainFrame extends JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         centralPanel.add(operationPanel, gridBagConstraints);
+
+
+
         inputAllParametersPanel.setLayout(new GridBagLayout());
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = GridBagConstraints.SOUTH;
@@ -189,6 +196,7 @@ public class MainFrame extends JFrame {
                     textArea.setText(String.format("Result: %d", result));
                 } catch (NumberFormatException ex) {
                     textArea.setText("Error");
+                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
                 }
             }
         });
@@ -206,6 +214,7 @@ public class MainFrame extends JFrame {
                     textArea.setText(String.format("Result: %s", result));
                 } catch (NumberFormatException ex) {
                     textArea.setText("Error");
+                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
                 }
             }
         });
@@ -223,6 +232,7 @@ public class MainFrame extends JFrame {
                     textArea.setText(String.format("Result: %d", result));
                 } catch (NumberFormatException ex) {
                     textArea.setText("Error");
+                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
                 }
             }
         });}
@@ -235,13 +245,32 @@ public class MainFrame extends JFrame {
                     int firstElement = Integer.parseInt(firstElementField.getText());
                     int coefficient = Integer.parseInt(ratioField.getText());
                     int index = Integer.parseInt(nElementField.getText());
-                    current.exportInFile(firstElement, index, coefficient);
+                    String fileName = nameOfFile.getText();
+                    current.exportInFile(firstElement, index, coefficient, fileName);
                     textArea.setText("Result: progression successfully written to file");
                 } catch (NumberFormatException ex) {
                     textArea.setText("Error");
+                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
                 }
             }
         });}
+    void initFileNameField(){
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        gridBagConstraints.anchor = GridBagConstraints.EAST;
+        fileNamePanel = new JPanel();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        centralPanel.add(fileNamePanel, gridBagConstraints);
+        nameOfFile = new JTextField(10);
+        nameOfFile.setText("progression");
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        fileNamePanel.add(new JLabel("Enter file name:"), gridBagConstraints);
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        fileNamePanel.add(nameOfFile, gridBagConstraints);
+    }
 
 
 
