@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="progressions:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/progressions_jar</output-path>
+    <root id="archive" name="progressions.jar">
+      <element id="module-output" name="progressions" />
+    </root>
+  </artifact>
+</component>

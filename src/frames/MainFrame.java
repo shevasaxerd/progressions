@@ -3,6 +3,8 @@ package frames;
 import models.Series;
 import models.Exponential;
 import models.Liner;
+import panels.ImagePanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,11 +38,11 @@ public class MainFrame extends JFrame {
         super("Progressions");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(1200, 400));
+        setResizable(false);
         setLayout(new BorderLayout(10, 10));
         this.liner = liner;
         this.exponential = exponential;
         current = this.exponential;
-
 
 
 
@@ -52,7 +54,7 @@ public class MainFrame extends JFrame {
         initCalculateSumButton();
         initOutputInFileButton();
         ButtonsPanel();
-        initFileNameField();
+        //initFileNameField();
         setVisible(true);
 
     }
@@ -243,9 +245,10 @@ public class MainFrame extends JFrame {
                     int firstElement = Integer.parseInt(firstElementField.getText());
                     int coefficient = Integer.parseInt(ratioField.getText());
                     int index = Integer.parseInt(nElementField.getText());
-                    String fileName = nameOfFile.getText();
+                    String fileName = JOptionPane.showInputDialog(
+                            "<html><h2>Enter file name:</h2>");
                     current.exportInFile(firstElement, index, coefficient, fileName);
-                    NoticeFrame frame = new NoticeFrame(nameOfFile.getText());
+                    NoticeFrame frame = new NoticeFrame(fileName);
                 } catch (NumberFormatException ex) {
                     NoticeFrame frame = new NoticeFrame();
                 }
