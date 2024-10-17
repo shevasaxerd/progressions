@@ -2,21 +2,18 @@ package frames;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class NoticeFrame extends JFrame {
-    private JPanel mainPanel;
 
-    public NoticeFrame(String massage){
-        super("ERROR");
-        setMinimumSize(new Dimension(450, 100));
-        setLayout(new BorderLayout(10, 10));
-        JLabel massageText = new JLabel(massage);
-        massageText.setFont(new Font("TimesRoman", Font.BOLD, 20));
-        massageText.setLayout(new FlowLayout(FlowLayout.CENTER));
-        setContentPane(massageText);
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+
+    public NoticeFrame(){
+        JOptionPane.showMessageDialog(null, "You have entered incorrect values!\n" + "Try again!", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public NoticeFrame(String fileName){
+        JOptionPane.showMessageDialog(null, "File " + fileName + ".txt has successfully saved in location", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

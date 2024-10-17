@@ -43,6 +43,7 @@ public class MainFrame extends JFrame {
 
 
 
+
         initProgressionPanel();
         initParametersPanel();
         initResultPanel();
@@ -195,8 +196,7 @@ public class MainFrame extends JFrame {
                     int result = current.getElement(firstElement, index, coefficient);
                     textArea.setText(String.format("Result: %d", result));
                 } catch (NumberFormatException ex) {
-                    textArea.setText("Error");
-                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
+                    NoticeFrame frame = new NoticeFrame();
                 }
             }
         });
@@ -213,8 +213,7 @@ public class MainFrame extends JFrame {
                     String result = current.toString(firstElement, index, coefficient);
                     textArea.setText(String.format("Result: %s", result));
                 } catch (NumberFormatException ex) {
-                    textArea.setText("Error");
-                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
+                    NoticeFrame frame = new NoticeFrame();
                 }
             }
         });
@@ -231,8 +230,7 @@ public class MainFrame extends JFrame {
                     int result = current.sumOfProgression(firstElement, index, coefficient);
                     textArea.setText(String.format("Result: %d", result));
                 } catch (NumberFormatException ex) {
-                    textArea.setText("Error");
-                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
+                    NoticeFrame frame = new NoticeFrame();
                 }
             }
         });}
@@ -247,10 +245,9 @@ public class MainFrame extends JFrame {
                     int index = Integer.parseInt(nElementField.getText());
                     String fileName = nameOfFile.getText();
                     current.exportInFile(firstElement, index, coefficient, fileName);
-                    textArea.setText("Result: progression successfully written to file");
+                    NoticeFrame frame = new NoticeFrame(nameOfFile.getText());
                 } catch (NumberFormatException ex) {
-                    textArea.setText("Error");
-                    NoticeFrame frame = new NoticeFrame("You have entered incorrect values!\n" + "Try again!");
+                    NoticeFrame frame = new NoticeFrame();
                 }
             }
         });}
